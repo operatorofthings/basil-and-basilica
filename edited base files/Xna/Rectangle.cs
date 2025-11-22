@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PepperAndChurchSaveEditor
+namespace BasilAndBasilica
 {
     [Serializable]
     public struct Rectangle : IEquatable<Rectangle>

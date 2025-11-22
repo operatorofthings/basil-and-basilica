@@ -1,4 +1,4 @@
-﻿namespace PepperAndChurchSaveEditor
+﻿namespace BasilAndBasilica
 {
     public class Vector2
     {

@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
-namespace PepperAndChurchSaveEditor
+namespace BasilAndBasilica
 {
     public partial class Form1 : Form
     {

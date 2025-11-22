@@ -7,8 +7,8 @@
     <ProjectGuid>{DBB179CA-1DC7-4634-B592-29290342F4A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PepperAndChurchSaveEditor</RootNamespace>
-    <AssemblyName>PepperAndChurchSaveEditor</AssemblyName>
+    <RootNamespace>BasilAndBasilica</RootNamespace>
+    <AssemblyName>BasilAndBasilica</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

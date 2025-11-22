@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PepperAndChurchSaveEditor.Properties
+namespace BasilAndBasilica.Properties
 {
 
 

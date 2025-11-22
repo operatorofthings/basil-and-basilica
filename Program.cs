@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace PepperAndChurchSaveEditor
+namespace BasilAndBasilica
 {
     internal static class Program
     {
@@ -17,6 +17,6 @@ namespace PepperAndChurchSaveEditor
         }
 
         internal const string VERSION = "0.3.3";
-        internal const string DATAPATH = "PepperAndChurchSaveEditor.data";
+        internal const string DATAPATH = "BasilAndBasilica.data";
     }
 }

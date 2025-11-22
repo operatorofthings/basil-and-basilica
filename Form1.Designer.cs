@@ -1,4 +1,4 @@
-﻿namespace PepperAndChurchSaveEditor
+﻿namespace BasilAndBasilica
 {
     partial class Form1
     {
@@ -1163,7 +1163,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
-            this.Text = "Pepper and Church Save Editor " + Program.VERSION;
+            this.Text = "Basil && Basilica Save Editor " + Program.VERSION;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabs.ResumeLayout(false);

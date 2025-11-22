@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PepperAndChurchSaveEditor
+namespace BasilAndBasilica
 {
     public struct Point : IEquatable<Point>
     {

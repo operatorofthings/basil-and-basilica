@@ -1,14 +1,14 @@
-# Pepper & Church Reloaded
+# Basil & Basilica
 
 Modernized save editor for **Salt and Sanctuary** built on the original “Pepper and Church” tool by [inner_fears](https://www.nexusmods.com/users/39167990) and [Goldenrevolver](https://www.nexusmods.com/users/4366065).  
-The upstream NexusMods release is available at https://www.nexusmods.com/saltandsanctuary/mods/68 (last updated 28 Jan 2023). This fork keeps the project alive with quality‑of‑life fixes and support for the current PC build (1.0.2.2).
+The upstream NexusMods release is available at https://www.nexusmods.com/saltandsanctuary/mods/68 (last updated 28 Jan 2023). This fork—**Basil & Basilica**—keeps the project alive with quality-of-life fixes, refreshed branding, and support for the current PC build (1.0.2.2).
 
 ## Highlights
 
-- **Reloaded branding:** “Pepper & Church Reloaded” keeps the familiar name while signaling the refreshed codebase.
+- **Basil & Basilica branding:** A playful nod to the old Pepper & Church theme, now leaning into basil leaves plus basilica silhouettes for icons and splash screens. Reuse the classic spice icons from the original or drop new `.ico` assets into `Properties/Resources` to make the menu art pop.
 - **Salt and Sanctuary 1.0.2.2 support:** Handles the enhanced save format, new sanctuary IDs, and large inventories without throwing exceptions.
 - **Graceful fallback logic:** Unknown sanctuaries or merchants are still editable thanks to placeholder rows and automatic ID handling.
-- **Ready-to-ship build:** A Release configuration produces an `.exe` suitable for GitHub Releases; the repo itself stays clean of copyrighted game assets.
+- **Ready-to-ship build:** Release builds produce a single `.exe` while the repo itself stays clean of copyrighted game assets.
 
 ## Getting Started
 
@@ -35,27 +35,21 @@ data/texturesheet/data/master.zcm
 
 ```bash
 # From the repo root
-"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" PepperAndChurchSaveEditor.csproj /t:Build /p:Configuration=Release
+"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" BasilAndBasilica.csproj /t:Build /p:Configuration=Release
 ```
 
-The compiled editor is written to `bin/Release/PepperAndChurchSaveEditor.exe`.  
-If you prefer Visual Studio, open `sas.sln`, select the **Release** configuration, and build normally.
+The compiled editor is written to `bin/Release/BasilAndBasilica.exe`.  
+If you prefer Visual Studio, open `BasilAndBasilica.sln`, select the **Release** configuration, and build normally.
 
 ### Running
 
-1. Launch `PepperAndChurchSaveEditor.exe`.
+1. Launch `BasilAndBasilica.exe`.
 2. Use **File → Load** and point to a save in `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`.
 3. Edit values (inventory, sanctuaries, flags, etc.) and choose **File → Save** to write back. A `.bak` backup is automatically created.
-
-## Publishing a GitHub Release
-
-1. Build the Release configuration after copying the latest game data files.
-2. Create a Git tag for the version you want to ship (e.g. `git tag v0.4.0-reloaded`).
-3. Upload `bin/Release/PepperAndChurchSaveEditor.exe` (and its `.config` if desired) as assets to the GitHub Release page so users can download the ready-made editor without compiling.
 
 ## Credits
 
 - Original save editor (“Pepper and Church”) by **inner_fears** & **Goldenrevolver** – https://www.nexusmods.com/saltandsanctuary/mods/68  
-- Fork & maintenance (“Pepper & Church Reloaded”) by the current contributors.
+- Fork & maintenance (“Basil & Basilica”) by the current contributors.
 
 Please continue to support the original authors and the Salt and Sanctuary community.
