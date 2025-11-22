@@ -1,6 +1,6 @@
 # Basil & Basilica
 
-Modernized save editor for **Salt and Sanctuary** built on the original “Pepper and Church” tool by [inner_fears](https://www.nexusmods.com/users/39167990) and [Goldenrevolver](https://www.nexusmods.com/users/4366065).  
+Modernized save editor for **Salt and Sanctuary** built on the original “Pepper and Church” tool by [inner_fears](https://next.nexusmods.com/profile/Inner_Fears?gameId=2049) and [Goldenrevolver](https://next.nexusmods.com/profile/Goldenrevolver).  
 The upstream NexusMods release is available at https://www.nexusmods.com/saltandsanctuary/mods/68 (last updated 28 Jan 2023). This fork—**Basil & Basilica**—keeps the project alive with quality-of-life fixes, refreshed branding, and support for the current PC build (1.0.2.2).
 
 ## Highlights
