@@ -8,6 +8,7 @@ using ProjectTower.sanctuary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,10 +24,19 @@ namespace BasilAndBasilica
 
         private readonly BindingList<Sanctuary> lastSanctuaryBindingList = new BindingList<Sanctuary>();
 
+        private readonly Color formBackColor = Color.FromArgb(246, 248, 252);
+
+        private readonly Color panelBackColor = Color.White;
+
+        private readonly Color accentColor = Color.FromArgb(94, 129, 244);
+
+        private readonly Font baseFont = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+
         public Form1(string[] args)
         {
             InitializeComponent();
             Game1.Init(args);
+            this.DoubleBuffered = true;
 
             InitializeSanctuaryLists();
             EnsureLastSanctuarySelection(Game1.p.lastSanctuaryIdx);
@@ -86,6 +96,7 @@ namespace BasilAndBasilica
             creedBox.SelectedIndex = 0;
 
             UpdateSanctuaries();
+            ApplyModernTheme();
         }
 
         private void InitializeSanctuaryLists()
@@ -1161,6 +1172,139 @@ namespace BasilAndBasilica
             {
                 Game1.p.flags.Add(newFlag);
                 bindinglist.Add(newFlag);
+            }
+        }
+
+        private void ApplyModernTheme()
+        {
+            this.Font = baseFont;
+            this.BackColor = formBackColor;
+            menuStrip1.Font = baseFont;
+            menuStrip1.BackColor = formBackColor;
+            menuStrip1.ForeColor = Color.FromArgb(30, 34, 45);
+
+            foreach (Control control in this.Controls)
+            {
+                ApplyThemeToControl(control);
+            }
+        }
+
+        private void ApplyThemeToControl(Control control)
+        {
+            if (control == menuStrip1)
+            {
+                return;
+            }
+
+            control.Font = baseFont;
+
+            TabControl tabControl = control as TabControl;
+            if (tabControl != null)
+            {
+                tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+                tabControl.Padding = new System.Drawing.Point(16, 6);
+                tabControl.Appearance = TabAppearance.Normal;
+                tabControl.ItemSize = new System.Drawing.Size(120, 28);
+                tabControl.SizeMode = TabSizeMode.Fixed;
+                tabControl.DrawItem -= ModernTabControl_DrawItem;
+                tabControl.DrawItem += ModernTabControl_DrawItem;
+                tabControl.BackColor = panelBackColor;
+            }
+            else
+            {
+                TabPage tabPage = control as TabPage;
+                if (tabPage != null)
+                {
+                    tabPage.BackColor = panelBackColor;
+                }
+                else
+                {
+                    GroupBox groupBox = control as GroupBox;
+                    if (groupBox != null)
+                    {
+                        groupBox.BackColor = panelBackColor;
+                        groupBox.ForeColor = Color.FromArgb(60, 64, 78);
+                    }
+                    else if (control is Panel || control is FlowLayoutPanel || control is TableLayoutPanel)
+                    {
+                        control.BackColor = panelBackColor;
+                    }
+                    else
+                    {
+                        Button button = control as Button;
+                        if (button != null)
+                        {
+                            button.FlatStyle = FlatStyle.Flat;
+                            button.FlatAppearance.BorderSize = 0;
+                            button.BackColor = accentColor;
+                            button.ForeColor = Color.White;
+                            button.Height = Math.Max(button.Height, 28);
+                            button.Margin = new Padding(4);
+                        }
+                        else
+                        {
+                            ComboBox comboBox = control as ComboBox;
+                            if (comboBox != null)
+                            {
+                                comboBox.FlatStyle = FlatStyle.Flat;
+                                comboBox.BackColor = Color.White;
+                            }
+                            else
+                            {
+                                TextBox textBox = control as TextBox;
+                                if (textBox != null)
+                                {
+                                    textBox.BorderStyle = BorderStyle.FixedSingle;
+                                    textBox.BackColor = Color.White;
+                                }
+                                else
+                                {
+                                    CheckBox checkBox = control as CheckBox;
+                                    if (checkBox != null)
+                                    {
+                                        checkBox.FlatStyle = FlatStyle.Flat;
+                                        checkBox.BackColor = formBackColor;
+                                    }
+                                    else
+                                    {
+                                        ListBox listBox = control as ListBox;
+                                        if (listBox != null)
+                                        {
+                                            listBox.BorderStyle = BorderStyle.FixedSingle;
+                                            listBox.BackColor = Color.White;
+                                        }
+                                        else if (control is Label)
+                                        {
+                                            control.ForeColor = Color.FromArgb(60, 64, 78);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (Control child in control.Controls)
+            {
+                ApplyThemeToControl(child);
+            }
+        }
+
+        private void ModernTabControl_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            TabControl tabControl = sender as TabControl;
+            if (tabControl != null)
+            {
+                bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+                Color tabColor = isSelected ? accentColor : Color.FromArgb(234, 237, 244);
+                Color textColor = isSelected ? Color.White : Color.FromArgb(80, 86, 106);
+                using (SolidBrush brush = new SolidBrush(tabColor))
+                {
+                    e.Graphics.FillRectangle(brush, e.Bounds);
+                }
+                TextRenderer.DrawText(e.Graphics, tabControl.TabPages[e.Index].Text, baseFont, e.Bounds, textColor,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
             }
         }
 
