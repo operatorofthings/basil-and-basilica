@@ -1163,7 +1163,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
-            this.Text = "Basil && Basilica Save Editor " + Program.VERSION;
+            this.Text = "Basil & Basilica Save Editor " + Program.VERSION;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabs.ResumeLayout(false);

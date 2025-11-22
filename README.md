@@ -5,7 +5,6 @@ The upstream NexusMods release is available at https://www.nexusmods.com/saltand
 
 ## Highlights
 
-- **Basil & Basilica branding:** A playful nod to the old Pepper & Church theme, now leaning into basil leaves plus basilica silhouettes for icons and splash screens. Reuse the classic spice icons from the original or drop new `.ico` assets into `Properties/Resources` to make the menu art pop.
 - **Salt and Sanctuary 1.0.2.2 support:** Handles the enhanced save format, new sanctuary IDs, and large inventories without throwing exceptions.
 - **Graceful fallback logic:** Unknown sanctuaries or merchants are still editable thanks to placeholder rows and automatic ID handling.
 - **Ready-to-ship build:** Release builds produce a single `.exe` while the repo itself stays clean of copyrighted game assets.
