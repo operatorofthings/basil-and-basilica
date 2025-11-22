@@ -1,0 +1,21 @@
+# Build output
+/bin/
+/obj/
+/*.log
+
+# User-specific settings
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio working folders
+/.vs/
+
+# Game data (copy these locally from your installation; do not commit)
+/data/
+
+# Backups / archives
+*.bak
+*.zip
+*.7z
