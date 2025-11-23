@@ -1,13 +1,16 @@
 # Basil & Basilica (🌿 & 🏛️)
 
-Modernized save editor for **Salt and Sanctuary** (🧂 & 🪦) built on the original “Pepper and Church” (🌶️ & ⛪) tool by [inner_fears](https://next.nexusmods.com/profile/Inner_Fears?gameId=2049) and [Goldenrevolver](https://next.nexusmods.com/profile/Goldenrevolver).  
+Modernized save editor for **Salt and Sanctuary** built on the original “Pepper and Church” tool by [inner_fears](https://next.nexusmods.com/profile/Inner_Fears?gameId=2049) and [Goldenrevolver](https://next.nexusmods.com/profile/Goldenrevolver).  
 The upstream NexusMods release is available at https://www.nexusmods.com/saltandsanctuary/mods/68 (last updated 28 Jan 2023). This fork—**Basil & Basilica**—keeps the project alive with quality-of-life fixes, refreshed branding, and support for the current PC build (1.0.2.2).
 
-## Highlights
+## Highlights (v1.0.1)
 
+- **Modernized UI:** Segoe UI, flat styling, and owner-drawn tabs for a cleaner feel.
+- **Inventory Helper:** Filter by category/text and use bulk actions (give materials, remove duplicates); edits reflect immediately in the loaded session—save when you’re happy.
+- **Backup Manager:** Browse, create, restore, and delete `.bak` files alongside your save.
+- **Skill Tree Builder:** Checklist of skill nodes with orb counter, import/export of node IDs, and a randomize option to shuffle your current allocation.
 - **Salt and Sanctuary 1.0.2.2 support:** Handles the enhanced save format, new sanctuary IDs, and large inventories without throwing exceptions.
 - **Graceful fallback logic:** Unknown sanctuaries or merchants are still editable thanks to placeholder rows and automatic ID handling.
-- **Ready-to-ship build:** Release builds produce a single `.exe` while the repo itself stays clean of copyrighted game assets.
 
 ## Getting Started
 

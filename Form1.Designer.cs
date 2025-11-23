@@ -33,6 +33,10 @@
             this.loadMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goodbyeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inventoryHelperMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backupManagerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skillTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -140,7 +144,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.toolsMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1166, 24);
@@ -177,6 +182,37 @@
             this.goodbyeMenuItem.Size = new System.Drawing.Size(122, 22);
             this.goodbyeMenuItem.Text = "Exit";
             this.goodbyeMenuItem.Click += new System.EventHandler(this.GoodbyeMenuItem_Click);
+            // 
+            // toolsMenuItem
+            // 
+            this.toolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inventoryHelperMenuItem,
+            this.backupManagerMenuItem,
+            this.skillTreeMenuItem});
+            this.toolsMenuItem.Name = "toolsMenuItem";
+            this.toolsMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsMenuItem.Text = "Tools";
+            // 
+            // inventoryHelperMenuItem
+            // 
+            this.inventoryHelperMenuItem.Name = "inventoryHelperMenuItem";
+            this.inventoryHelperMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.inventoryHelperMenuItem.Text = "Inventory Helper...";
+            this.inventoryHelperMenuItem.Click += new System.EventHandler(this.InventoryHelperMenuItem_Click);
+            // 
+            // backupManagerMenuItem
+            // 
+            this.backupManagerMenuItem.Name = "backupManagerMenuItem";
+            this.backupManagerMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.backupManagerMenuItem.Text = "Backup Manager...";
+            this.backupManagerMenuItem.Click += new System.EventHandler(this.BackupManagerMenuItem_Click);
+            // 
+            // skillTreeMenuItem
+            // 
+            this.skillTreeMenuItem.Name = "skillTreeMenuItem";
+            this.skillTreeMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.skillTreeMenuItem.Text = "Skill Tree Builder...";
+            this.skillTreeMenuItem.Click += new System.EventHandler(this.SkillTreeMenuItem_Click);
             // 
             // label1
             // 
@@ -1184,6 +1220,10 @@
         private System.Windows.Forms.ToolStripMenuItem loadMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goodbyeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inventoryHelperMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backupManagerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem skillTreeMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

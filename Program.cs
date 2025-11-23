@@ -16,7 +16,7 @@ namespace BasilAndBasilica
             Application.Run(new Form1(args));
         }
 
-        internal const string VERSION = "1.0.0";
+        internal const string VERSION = "1.0.1";
         internal const string DATAPATH = "BasilAndBasilica.data";
     }
 }
