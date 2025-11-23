@@ -1207,6 +1207,24 @@ namespace BasilAndBasilica
             ShowBackupManager();
         }
 
+        private void LanguageEnglishMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLanguage(0);
+        }
+
+        private void LanguageGermanMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLanguage(2);
+        }
+
+        private void SetLanguage(int languageIndex)
+        {
+            Game1.language = languageIndex;
+            UpdateInventories();
+            UpdateSanctuaries();
+            ApplyThemeToControl(tabs); // force redraw of tab headers
+        }
+
         private void ShowSanctuaryPresetManager()
         {
             Form dialog = new Form
@@ -1452,8 +1470,8 @@ namespace BasilAndBasilica
                 Left = 10,
                 Top = 10,
                 Width = 490,
-                Height = 34,
-                Text = "Filter by category and text; use the buttons to give materials or clean duplicates. Changes apply immediately to the save."
+                Height = 44,
+                Text = "Filter by category and text. Select an item and use quick add buttons to bump its count. Bulk buttons: give materials or remove duplicates. Save afterward to commit to disk."
             };
 
             ComboBox categoryCombo = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Left = 10, Top = 10, Width = 200 };
@@ -1472,7 +1490,9 @@ namespace BasilAndBasilica
             categoryCombo.SelectedIndex = 0;
 
             TextBox filterBox = new TextBox { Left = 10, Top = 50, Width = 490 };
-            ListBox resultList = new ListBox { Left = 10, Top = 80, Width = 490, Height = 280 };
+            ListBox resultList = new ListBox { Left = 10, Top = 80, Width = 490, Height = 230 };
+            Label selectionLabel = new Label { Left = 10, Top = 315, Width = 300, Height = 20, Text = "Selected: (none)" };
+            Label statusLabel = new Label { Left = 10, Top = 340, Width = 490, Height = 18, ForeColor = Color.FromArgb(60, 64, 78) };
 
             Action refresh = () =>
             {
@@ -1482,14 +1502,51 @@ namespace BasilAndBasilica
                     .Where(i => i != null)
                     .Where(i => selectedCategory < 0 || i.category == selectedCategory)
                     .Where(i => i.DisplayName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .Select(i => string.Format("{0} (x{1})", i.DisplayName, i.count))
+                    .OrderBy(i => i.DisplayName)
                     .ToList();
+                resultList.DataSource = null;
                 resultList.DataSource = items;
+                resultList.DisplayMember = "DisplayName";
+            };
+
+            resultList.SelectedIndexChanged += (s, e) =>
+            {
+                InvLoot loot = resultList.SelectedItem as InvLoot;
+                if (loot != null)
+                {
+                    selectionLabel.Text = string.Format("Selected: {0} (x{1})", loot.DisplayName, loot.count);
+                }
+                else
+                {
+                    selectionLabel.Text = "Selected: (none)";
+                }
             };
 
             categoryCombo.SelectedIndexChanged += (s, e) => refresh();
             filterBox.TextChanged += (s, e) => refresh();
             refresh();
+
+            Button add1Button = new Button { Text = "+1", Width = 50, Left = 320, Top = 310 };
+            Button add10Button = new Button { Text = "+10", Width = 50, Left = 375, Top = 310 };
+            Button add50Button = new Button { Text = "+50", Width = 50, Left = 430, Top = 310 };
+            Button add100Button = new Button { Text = "+100", Width = 50, Left = 485, Top = 310 };
+
+            Action<int> bumpSelected = (amount) =>
+            {
+                InvLoot loot = resultList.SelectedItem as InvLoot;
+                if (loot != null)
+                {
+                    loot.count += amount;
+                    selectionLabel.Text = string.Format("Selected: {0} (x{1})", loot.DisplayName, loot.count);
+                    statusLabel.Text = string.Format("Queued change: +{0} to {1}. Save to commit.", amount, loot.DisplayName);
+                    refresh();
+                }
+            };
+
+            add1Button.Click += (s, e) => bumpSelected(1);
+            add10Button.Click += (s, e) => bumpSelected(10);
+            add50Button.Click += (s, e) => bumpSelected(50);
+            add100Button.Click += (s, e) => bumpSelected(100);
 
             Button addMaterialsButton = new Button { Text = "Give 20 of each material", Width = 200, Left = 10, Top = 370 };
             Button clearDuplicatesButton = new Button { Text = "Remove duplicates", Width = 150, Left = 220, Top = 370 };
@@ -1498,12 +1555,14 @@ namespace BasilAndBasilica
             addMaterialsButton.Click += (s, e) =>
             {
                 AddAllMaterials(20);
+                statusLabel.Text = "Materials granted. Save to commit.";
                 refresh();
             };
 
             clearDuplicatesButton.Click += (s, e) =>
             {
                 ClearDuplicateInventoryItems();
+                statusLabel.Text = "Duplicates removed. Save to commit.";
                 refresh();
             };
 
@@ -1513,6 +1572,12 @@ namespace BasilAndBasilica
             dialog.Controls.Add(categoryCombo);
             dialog.Controls.Add(filterBox);
             dialog.Controls.Add(resultList);
+            dialog.Controls.Add(selectionLabel);
+            dialog.Controls.Add(statusLabel);
+            dialog.Controls.Add(add1Button);
+            dialog.Controls.Add(add10Button);
+            dialog.Controls.Add(add50Button);
+            dialog.Controls.Add(add100Button);
             dialog.Controls.Add(addMaterialsButton);
             dialog.Controls.Add(clearDuplicatesButton);
             dialog.Controls.Add(refreshButton);
