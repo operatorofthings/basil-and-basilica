@@ -37,9 +37,8 @@
             this.inventoryHelperMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupManagerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skillTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageEnglishMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageGermanMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageEnglishTopMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageGermanTopMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -148,7 +147,9 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.toolsMenuItem});
+            this.toolsMenuItem,
+            this.languageEnglishTopMenuItem,
+            this.languageGermanTopMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1166, 24);
@@ -191,8 +192,7 @@
             this.toolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.inventoryHelperMenuItem,
             this.backupManagerMenuItem,
-            this.skillTreeMenuItem,
-            this.languageMenuItem});
+            this.skillTreeMenuItem});
             this.toolsMenuItem.Name = "toolsMenuItem";
             this.toolsMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsMenuItem.Text = "Tools";
@@ -218,28 +218,19 @@
             this.skillTreeMenuItem.Text = "Skill Tree Builder...";
             this.skillTreeMenuItem.Click += new System.EventHandler(this.SkillTreeMenuItem_Click);
             // 
-            // languageMenuItem
+            // languageEnglishTopMenuItem
             // 
-            this.languageMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.languageEnglishMenuItem,
-            this.languageGermanMenuItem});
-            this.languageMenuItem.Name = "languageMenuItem";
-            this.languageMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.languageMenuItem.Text = "Language";
+            this.languageEnglishTopMenuItem.Name = "languageEnglishTopMenuItem";
+            this.languageEnglishTopMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.languageEnglishTopMenuItem.Text = "EN";
+            this.languageEnglishTopMenuItem.Click += new System.EventHandler(this.LanguageEnglishMenuItem_Click);
             // 
-            // languageEnglishMenuItem
+            // languageGermanTopMenuItem
             // 
-            this.languageEnglishMenuItem.Name = "languageEnglishMenuItem";
-            this.languageEnglishMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.languageEnglishMenuItem.Text = "English";
-            this.languageEnglishMenuItem.Click += new System.EventHandler(this.LanguageEnglishMenuItem_Click);
-            // 
-            // languageGermanMenuItem
-            // 
-            this.languageGermanMenuItem.Name = "languageGermanMenuItem";
-            this.languageGermanMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.languageGermanMenuItem.Text = "German";
-            this.languageGermanMenuItem.Click += new System.EventHandler(this.LanguageGermanMenuItem_Click);
+            this.languageGermanTopMenuItem.Name = "languageGermanTopMenuItem";
+            this.languageGermanTopMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.languageGermanTopMenuItem.Text = "DE";
+            this.languageGermanTopMenuItem.Click += new System.EventHandler(this.LanguageGermanMenuItem_Click);
             // 
             // label1
             // 
@@ -1251,9 +1242,8 @@
         private System.Windows.Forms.ToolStripMenuItem inventoryHelperMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backupManagerMenuItem;
         private System.Windows.Forms.ToolStripMenuItem skillTreeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem languageMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem languageEnglishMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem languageGermanMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageEnglishTopMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageGermanTopMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

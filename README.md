@@ -5,10 +5,11 @@ The upstream NexusMods release is available at https://www.nexusmods.com/saltand
 
 ## Highlights (v1.0.1)
 
-- **Modernized UI:** Segoe UI, flat styling, and owner-drawn tabs for a cleaner feel.
-- **Inventory Helper:** Filter by category/text and use bulk actions (give materials, remove duplicates); edits reflect immediately in the loaded session—save when you’re happy.
+- **Modernized UI:** Segoe UI, flat styling, owner-drawn tabs, and fresher spacing.
+- **Inventory Helper:** Filter/search, quick-add (+1/+10/+50/+100), bulk “give materials” and “remove duplicates,” clearer status text, and selection is preserved after actions. Save to commit changes.
 - **Backup Manager:** Browse, create, restore, and delete `.bak` files alongside your save.
-- **Skill Tree Builder:** Checklist of skill nodes with orb counter, import/export of node IDs, and a randomize option to shuffle your current allocation.
+- **Skill Tree Builder:** Checklist of skill nodes with orb counter, import/export of node IDs, randomize current allocation, and an in-app legend explaining node type codes.
+- **Language toggle (EN/DE):** Top-bar switch updates in-app item names where German strings exist; falls back to English otherwise.
 - **Salt and Sanctuary 1.0.2.2 support:** Handles the enhanced save format, new sanctuary IDs, and large inventories without throwing exceptions.
 - **Graceful fallback logic:** Unknown sanctuaries or merchants are still editable thanks to placeholder rows and automatic ID handling.
 

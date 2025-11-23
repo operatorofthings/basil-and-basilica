@@ -56,6 +56,43 @@ namespace BasilAndBasilica
 
         private readonly Random rng = new Random();
 
+        // Game language indices per TranslationMgr: 0=EN, 1=FR, 2=IT, 3=DE, etc.
+        private const int LANGUAGE_ENGLISH = 0;
+        private const int LANGUAGE_GERMAN = 3;
+
+        private readonly Dictionary<int, string> skillTypeLegend = new Dictionary<int, string>
+        {
+            { SkillNode.TYPE_SWORD_CLASS, "Sword class" },
+            { SkillNode.TYPE_AXE_CLASS_DEP, "Axe class (dep)" },
+            { SkillNode.TYPE_MACE_CLASS, "Mace class" },
+            { SkillNode.TYPE_DAGGER_CLASS, "Dagger class" },
+            { SkillNode.TYPE_SPEAR_CLASS_DEP, "Spear class (dep)" },
+            { SkillNode.TYPE_SHIELD_CLASS, "Shield class" },
+            { SkillNode.TYPE_GREATSWORD_CLASS_DEP, "Greatsword class (dep)" },
+            { SkillNode.TYPE_GREATAXE_CLASS_DEP, "Greataxe class (dep)" },
+            { SkillNode.TYPE_GREATHAMMER_CLASS, "Greathammer class" },
+            { SkillNode.TYPE_WHIP_CLASS, "Whip class" },
+            { SkillNode.TYPE_STAFF_CLASS, "Staff class" },
+            { SkillNode.TYPE_BOW_CLASS, "Bow class" },
+            { SkillNode.TYPE_CROSSBOW_CLASS, "Crossbow class" },
+            { SkillNode.TYPE_PISTOL_CLASS_DEP, "Pistol class (dep)" },
+            { SkillNode.TYPE_POLEAXE_CLASS, "Poleaxe class" },
+            { SkillNode.TYPE_HALBERD_CLASS_DEP, "Halberd class (dep)" },
+            { SkillNode.TYPE_ARMOR_CLASS, "Armor class" },
+            { SkillNode.TYPE_STR, "Strength +" },
+            { SkillNode.TYPE_DEX, "Dexterity +" },
+            { SkillNode.TYPE_MAG, "Magic +" },
+            { SkillNode.TYPE_WIS, "Wisdom +" },
+            { SkillNode.TYPE_END, "Endurance +" },
+            { SkillNode.TYPE_WILL, "Willpower +" },
+            { SkillNode.TYPE_HEALTH_POT, "Health potion tier" },
+            { SkillNode.TYPE_MANA_POT, "Mana potion tier" },
+            { SkillNode.TYPE_PRAYER_CLASS, "Prayer class" },
+            { SkillNode.TYPE_MAGIC_CLASS, "Magic class" },
+            { SkillNode.TYPE_WAND_CLASS, "Wand class" },
+            { SkillNode.TYPE_LIGHT_ARMOR_CLASS, "Light armor class" }
+        };
+
         public Form1(string[] args)
         {
             InitializeComponent();
@@ -121,6 +158,13 @@ namespace BasilAndBasilica
 
             UpdateSanctuaries();
             ApplyModernTheme();
+
+            // sync language toggle and indicators on startup (default to English)
+            if (Game1.language != LANGUAGE_ENGLISH && Game1.language != LANGUAGE_GERMAN)
+            {
+                Game1.language = LANGUAGE_ENGLISH;
+            }
+            SetLanguage(Game1.language);
         }
 
         private void InitializeSanctuaryLists()
@@ -1209,20 +1253,55 @@ namespace BasilAndBasilica
 
         private void LanguageEnglishMenuItem_Click(object sender, EventArgs e)
         {
-            SetLanguage(0);
+            SetLanguage(LANGUAGE_ENGLISH);
         }
 
         private void LanguageGermanMenuItem_Click(object sender, EventArgs e)
         {
-            SetLanguage(2);
+            SetLanguage(LANGUAGE_GERMAN);
         }
 
         private void SetLanguage(int languageIndex)
         {
-            Game1.language = languageIndex;
+            int lang = languageIndex;
+            if (lang != LANGUAGE_ENGLISH && lang != LANGUAGE_GERMAN)
+            {
+                lang = LANGUAGE_ENGLISH;
+            }
+
+            Game1.language = lang;
+            UpdateLanguageMenuVisuals(lang);
+
+            ResetDisplayNameCache();
             UpdateInventories();
             UpdateSanctuaries();
             ApplyThemeToControl(tabs); // force redraw of tab headers
+        }
+
+        private void UpdateLanguageMenuVisuals(int lang)
+        {
+            languageEnglishTopMenuItem.Checked = lang == LANGUAGE_ENGLISH;
+            languageGermanTopMenuItem.Checked = lang == LANGUAGE_GERMAN;
+
+            Action<ToolStripMenuItem, bool> style = (item, isSelected) =>
+            {
+                item.BackColor = isSelected ? Color.FromArgb(224, 232, 255) : Color.Transparent;
+                item.Font = isSelected ? new Font(baseFont, FontStyle.Bold) : baseFont;
+            };
+
+            style(languageEnglishTopMenuItem, lang == LANGUAGE_ENGLISH);
+            style(languageGermanTopMenuItem, lang == LANGUAGE_GERMAN);
+        }
+
+        private void ResetDisplayNameCache()
+        {
+            foreach (var item in Game1.p.playerInv.inventory)
+            {
+                if (item != null)
+                {
+                    item.ResetDisplayName();
+                }
+            }
         }
 
         private void ShowSanctuaryPresetManager()
@@ -1498,15 +1577,33 @@ namespace BasilAndBasilica
             {
                 int selectedCategory = categoryCombo.SelectedIndex - 1;
                 string filter = filterBox.Text ?? string.Empty;
+                InvLoot selectedLoot = resultList.SelectedItem as InvLoot;
+                int previousIndex = resultList.SelectedIndex;
+
                 var items = Game1.p.playerInv.inventory
                     .Where(i => i != null)
                     .Where(i => selectedCategory < 0 || i.category == selectedCategory)
                     .Where(i => i.DisplayName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)
                     .OrderBy(i => i.DisplayName)
                     .ToList();
+
                 resultList.DataSource = null;
                 resultList.DataSource = items;
                 resultList.DisplayMember = "DisplayName";
+
+                int foundIndex = selectedLoot != null ? items.IndexOf(selectedLoot) : -1;
+                if (foundIndex >= 0)
+                {
+                    resultList.SelectedIndex = foundIndex;
+                }
+                else if (previousIndex >= 0 && previousIndex < items.Count)
+                {
+                    resultList.SelectedIndex = previousIndex;
+                }
+                else
+                {
+                    resultList.ClearSelected();
+                }
             };
 
             resultList.SelectedIndexChanged += (s, e) =>
@@ -1678,7 +1775,7 @@ namespace BasilAndBasilica
             Form dialog = new Form
             {
                 Text = "Skill Tree Builder",
-                Size = new Size(620, 520),
+                Size = new Size(880, 560),
                 StartPosition = FormStartPosition.CenterParent
             };
 
@@ -1701,13 +1798,31 @@ namespace BasilAndBasilica
                 GridLines = false,
                 Left = 10,
                 Top = 40,
-                Width = 580,
-                Height = 370
+                Width = 520,
+                Height = 420
             };
             listView.Columns.Add("ID", 50);
             listView.Columns.Add("Title", 350);
             listView.Columns.Add("Type", 80);
             listView.Columns.Add("Cost", 80);
+
+            ListView legendList = new ListView
+            {
+                View = View.Details,
+                FullRowSelect = false,
+                GridLines = false,
+                Left = listView.Right + 10,
+                Top = 40,
+                Width = 320,
+                Height = 420,
+                HeaderStyle = ColumnHeaderStyle.Nonclickable
+            };
+            legendList.Columns.Add("Type", 60);
+            legendList.Columns.Add("Meaning", 240);
+            foreach (var kvp in skillTypeLegend.OrderBy(k => k.Key))
+            {
+                legendList.Items.Add(new ListViewItem(new string[] { kvp.Key.ToString(), kvp.Value }));
+            }
 
             for (int i = 0; i < SkillTree.nodes.Length; i++)
             {
@@ -1724,13 +1839,13 @@ namespace BasilAndBasilica
                 listView.Items.Add(item);
             }
 
-            Button checkAll = new Button { Text = "Check All", Width = 100, Left = 10, Top = 420 };
-            Button uncheckAll = new Button { Text = "Clear All", Width = 100, Left = 120, Top = 420 };
-            Button randomizeBtn = new Button { Text = "Randomize", Width = 100, Left = 230, Top = 420 };
-            Button importBtn = new Button { Text = "Import...", Width = 100, Left = 340, Top = 420 };
-            Button exportBtn = new Button { Text = "Export...", Width = 100, Left = 450, Top = 420 };
-            Button applyBtn = new Button { Text = "Apply", Width = 80, Left = 10, Top = 460 };
-            Button closeBtn = new Button { Text = "Close", Width = 80, Left = 100, Top = 460, DialogResult = DialogResult.OK };
+            Button checkAll = new Button { Text = "Check All", Width = 100, Left = 10, Top = 470 };
+            Button uncheckAll = new Button { Text = "Clear All", Width = 100, Left = 120, Top = 470 };
+            Button randomizeBtn = new Button { Text = "Randomize", Width = 100, Left = 230, Top = 470 };
+            Button importBtn = new Button { Text = "Import...", Width = 100, Left = 340, Top = 470 };
+            Button exportBtn = new Button { Text = "Export...", Width = 100, Left = 450, Top = 470 };
+            Button applyBtn = new Button { Text = "Apply", Width = 90, Left = legendList.Left, Top = 470 };
+            Button closeBtn = new Button { Text = "Close", Width = 90, Left = legendList.Left + 100, Top = 470, DialogResult = DialogResult.OK };
 
             Action updateOrbs = () =>
             {
@@ -1788,6 +1903,7 @@ namespace BasilAndBasilica
 
             dialog.Controls.Add(orbLabel);
             dialog.Controls.Add(listView);
+            dialog.Controls.Add(legendList);
             dialog.Controls.Add(checkAll);
             dialog.Controls.Add(uncheckAll);
             dialog.Controls.Add(randomizeBtn);

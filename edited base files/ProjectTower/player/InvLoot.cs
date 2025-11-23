@@ -115,6 +115,11 @@ namespace ProjectTower.player
             }
         }
 
+        public void ResetDisplayName()
+        {
+            this.DisplayNameBackingField = null;
+        }
+
         public class SortInvLootByName : Comparer<InvLoot>
         {
             public override int Compare(InvLoot a, InvLoot b)
