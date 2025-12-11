@@ -17,7 +17,7 @@ The upstream NexusMods release is available at https://www.nexusmods.com/saltand
 
 > 🚨 Before you move on, please make sure that you BACKUP your Salt & Sanctuary savegame files located at `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`
 
-1) Go to the GitHub [Releases](https://github.com/operatorofthings/basil-and-basilica/releases) page (look to the right 👉)
+1) Go to the GitHub [Releases](https://github.com/operatorofthings/basil-and-basilica/releases) (👈 click this link or scroll a bit up and look to the right 👉)
 2) Download the latest `BasilAndBasilica.exe`.   
 3) Double-click `BasilAndBasilica.exe` (allow Windows to run it if prompted).  
 4) In the app choose **File → Load** and select your save at `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`.  
