@@ -1,6 +1,6 @@
 # Basil & Basilica (🌿 & 🏛️)
 
-Modernized save editor for **Salt and Sanctuary** built on the original “Pepper and Church” tool by [inner_fears](https://next.nexusmods.com/profile/Inner_Fears?gameId=2049) and [Goldenrevolver](https://next.nexusmods.com/profile/Goldenrevolver).  
+Modernized save editor for **Salt and Sanctuary** (🧂& 💒) built on the original “Pepper and Church” (🌶️&⛪) tool by [inner_fears](https://next.nexusmods.com/profile/Inner_Fears?gameId=2049) and [Goldenrevolver](https://next.nexusmods.com/profile/Goldenrevolver).  
 The upstream NexusMods release is available at https://www.nexusmods.com/saltandsanctuary/mods/68 (last updated 28 Jan 2023). This fork—**Basil & Basilica**—keeps the project alive with quality-of-life fixes, refreshed branding, and support for the current PC build (1.0.2.2).
 
 ## Highlights (v1.0.1)
@@ -13,16 +13,28 @@ The upstream NexusMods release is available at https://www.nexusmods.com/saltand
 - **Salt and Sanctuary 1.0.2.2 support:** Handles the enhanced save format, new sanctuary IDs, and large inventories without throwing exceptions.
 - **Graceful fallback logic:** Unknown sanctuaries or merchants are still editable thanks to placeholder rows and automatic ID handling.
 
-## Getting Started
+## Just download and play 🚀 (no coding)
+
+> 🚨 Before you move on, please make sure that you BACKUP your Salt & Sanctuary savegame files located at `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`
+
+1) Go to the GitHub [Releases](https://github.com/operatorofthings/basil-and-basilica/releases) page (look to the right 👉)
+2) Download the latest `BasilAndBasilica.exe`.   
+3) Double-click `BasilAndBasilica.exe` (allow Windows to run it if prompted).  
+4) In the app choose **File → Load** and select your save at `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`.  
+5) Make edits, then **File → Save**. A `.bak` backup is created automatically next to your save.
+
+
+## Development setup
 
 ### Requirements
 
 - Windows with .NET Framework **4.5.2** developer pack (MSBuild 14+) or Visual Studio 2019+/Build Tools.
-- A legitimate copy of Salt and Sanctuary 1.0.2.2 to provide the required resource archives.
+- Salt and Sanctuary 1.0.2.2 (to supply proprietary data archives).
 
-### Preparing the data folder
+### Prepare the data folder (required to build)
 
-The editor embeds several proprietary data archives. Copy them from your installation (default: `C:\Program Files (x86)\Steam\steamapps\common\Salt and Sanctuary`) into the repository under `data/<subfolder>/` as shown below. Do **not** commit these files.
+Copy the game data into `data/` from your install (default: `C:\Program Files (x86)\Steam\steamapps\common\Salt and Sanctuary`). 
+>Do **never** commit Salt & Sancturay game files!
 
 ```
 data/dialog/data/dialog.zdx
@@ -34,21 +46,23 @@ data/skilltree/data/skilltree.zsx
 data/texturesheet/data/master.zcm
 ```
 
-### Building
+### Build
 
 ```bash
-# From the repo root
+# From repo root on Windows
 "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" BasilAndBasilica.csproj /t:Build /p:Configuration=Release
+
+# From WSL (uses the same Windows MSBuild)
+/mnt/c/Windows/Microsoft.NET/Framework64/v4.0.30319/MSBuild.exe BasilAndBasilica.csproj /t:Build /p:Configuration=Release
 ```
 
-The compiled editor is written to `bin/Release/BasilAndBasilica.exe`.  
-If you prefer Visual Studio, open `BasilAndBasilica.sln`, select the **Release** configuration, and build normally.
+Artifacts land in `bin/Release/` (`BasilAndBasilica.exe`, `.config`, `.pdb`). Visual Studio users can open `BasilAndBasilica.sln`, select **Release**, and build normally.
 
-### Running
+### Run (after building yourself)
 
-1. Launch `BasilAndBasilica.exe`.
-2. Use **File → Load** and point to a save in `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`.
-3. Edit values (inventory, sanctuaries, flags, etc.) and choose **File → Save** to write back. A `.bak` backup is automatically created.
+1. Launch `bin/Release/BasilAndBasilica.exe`.
+2. **File → Load** your save from `%USERPROFILE%\Documents\Salt and Sanctuary\savedata\dat*.slv`.
+3. Edit and **File → Save** (auto `.bak` created).
 
 ## Credits
 
